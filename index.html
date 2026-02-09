@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#000000" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Koramil Sukasada Portal" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="msapplication-TileColor" content="#000000" />
+<meta name="msapplication-tap-highlight" content="no" />
+<title>KORAMIL 05 SUKASADA</title>
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/2/25/Lambang_Kodam_Udayana.svg">
+<link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/2/25/Lambang_Kodam_Udayana.svg">
+
+<style>
+  * { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    touch-action: manipulation;
+    background: #000;
+  }
+
+  body {
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    min-height: -webkit-fill-available;
+    position: relative;
+  }
+
+  /* Logo Udayana */
+  .udayana-header {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    text-align: center;
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  .udayana-logo {
+    width: 100px;
+    height: 100px;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5))
+           drop-shadow(0 0 40px rgba(255, 140, 0, 0.3));
+    transition: all 0.5s ease;
+    animation: goldenPulse 3s infinite alternate;
+  }
+
+  @keyframes goldenPulse {
+    0% { 
+      transform: scale(1);
+      filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.4))
+             drop-shadow(0 0 30px rgba(255, 140, 0, 0.2));
+    }
+    100% { 
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.6))
+             drop-shadow(0 0 50px rgba(255, 140, 0, 0.4));
+    }
+  }
+
+  .udayana-title {
+    color: #ffd700;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 8px;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.7),
+                 0 0 25px rgba(255, 140, 0, 0.4);
+    letter-spacing: 2px;
+  }
+
+  /* Responsif untuk layar kecil */
+  @media (max-width: 768px) {
+    .udayana-logo {
+      width: 80px;
+      height: 80px;
+    }
+    
+    .udayana-title {
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .udayana-logo {
+      width: 70px;
+      height: 70px;
+    }
+    
+    .udayana-title {
+      font-size: 16px;
+      letter-spacing: 1px;
+    }
+  }
+
+  /* Container utama */
+  .main-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 140px 20px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Grid untuk tombol */
+  .buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 20px;
+    z-index: 10;
+  }
+
+  /* Responsif grid */
+  @media (max-width: 768px) {
+    .buttons-grid {
+      gap: 15px;
+      max-width: 700px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .buttons-grid {
+      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .main-container {
+      padding: 120px 15px 15px;
+    }
+  }
+
+  /* Landscape mode */
+  @media (max-height: 600px) and (orientation: landscape) {
+    .main-container {
+      padding: 100px 10px 10px;
+    }
+    
+    .buttons-grid {
+      gap: 10px;
+      max-width: 95%;
+    }
+    
+    .udayana-header {
+      top: 10px;
+    }
+    
+    .udayana-logo {
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  /* Tombol - DIBESARKAN */
+  .portal-button {
+    position: relative;
+    padding: 20px 12px;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 18px;
+    border: 3px solid;
+    color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 140px;
+    aspect-ratio: 1/1;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6),
+                inset 0 0 20px rgba(255, 255, 255, 0.15);
+  }
+
+  /* Tombol disabled sementara */
+  .portal-button:disabled {
+    cursor: not-allowed;
+  }
+
+  /* Warna tombol berbeda dengan border lebih tebal */
+  .portal-button:nth-child(1) { /* DUKOPS */
+    background: linear-gradient(145deg, rgba(0, 100, 200, 0.3), rgba(0, 50, 150, 0.25));
+    border-color: rgba(0, 180, 255, 0.8);
+  }
+
+  .portal-button:nth-child(2) { /* LPST05 */
+    background: linear-gradient(145deg, rgba(150, 0, 200, 0.3), rgba(100, 0, 150, 0.25));
+    border-color: rgba(200, 0, 255, 0.8);
+  }
+
+  .portal-button:nth-child(3) { /* Google Drive */
+    background: linear-gradient(145deg, rgba(255, 180, 0, 0.3), rgba(200, 120, 0, 0.25));
+    border-color: rgba(255, 220, 80, 0.8);
+  }
+
+  .portal-button:nth-child(4) { /* Spreadsheet */
+    background: linear-gradient(145deg, rgba(50, 180, 50, 0.3), rgba(30, 120, 30, 0.25));
+    border-color: rgba(100, 255, 100, 0.8);
+  }
+
+  .portal-button:nth-child(5) { /* Play Store */
+    background: linear-gradient(145deg, rgba(50, 120, 220, 0.3), rgba(30, 90, 180, 0.25));
+    border-color: rgba(100, 180, 255, 0.8);
+  }
+
+  .portal-button:nth-child(6) { /* Telegram */
+    background: linear-gradient(145deg, rgba(0, 160, 220, 0.3), rgba(0, 120, 180, 0.25));
+    border-color: rgba(0, 220, 255, 0.8);
+  }
+
+  .portal-button:hover:not(:disabled) { 
+    transform: translateY(-5px) scale(1.08); 
+    filter: brightness(1.4);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8),
+                0 0 30px currentColor,
+                inset 0 0 25px rgba(255, 255, 255, 0.2);
+  }
+
+  .portal-button:active:not(:disabled) {
+    transform: translateY(-2px) scale(1.02);
+    transition: 0.1s;
+  }
+
+  .portal-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent 0%,
+      rgba(255,255,255,0.4) 45%,
+      transparent 100%
+    );
+    transform: translateX(-140%);
+    transition: transform 0.85s ease;
+  }
+
+  .portal-button:hover:not(:disabled)::before { 
+    transform: translateX(140%); 
+  }
+
+  /* Icon dalam tombol - DIBESARKAN */
+  .button-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 0 8px currentColor);
+    transition: all 0.3s ease;
+  }
+
+  .button-text {
+    font-size: 14px;
+    line-height: 1.3;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 10px currentColor;
+  }
+
+  @media (max-width: 768px) {
+    .portal-button {
+      padding: 18px 10px;
+      min-height: 120px;
+      font-size: 15px;
+      border-radius: 16px;
+      border-width: 2.5px;
+    }
+    
+    .button-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    
+    .button-text {
+      font-size: 13px;
+      letter-spacing: 1.2px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .portal-button {
+      padding: 15px 8px;
+      min-height: 110px;
+      border-radius: 14px;
+      border-width: 2px;
+    }
+    
+    .button-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    
+    .button-text {
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+  }
+
+  /* Canvas untuk efek petir */
+  canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .flash-overlay {
+    position: fixed;
+    inset: 0;
+    background: white;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+    transition: opacity 0.05s;
+  }
+
+  /* Efek pecah seribu - DIKEMBANGKAN */
+  .shard {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle at 30% 30%, currentColor, transparent);
+    box-shadow: 0 0 15px currentColor;
+    transform-origin: center;
+    z-index: 100;
+    opacity: 0;
+  }
+
+  .spark {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle, white, transparent);
+    box-shadow: 0 0 20px white,
+                0 0 40px currentColor;
+    z-index: 99;
+    opacity: 0;
+  }
+
+  /* Control buttons */
+  .control-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 12px;
+    z-index: 1000;
+  }
+
+  .control-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 215, 0, 0.25);
+    border: 2px solid rgba(255, 215, 0, 0.6);
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+  }
+
+  .control-btn:hover {
+    transform: scale(1.1);
+    background: rgba(255, 215, 0, 0.4);
+  }
+
+  /* Loading overlay */
+  .loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .loading-overlay.hidden {
+    display: none;
+  }
+
+  .loading-logo {
+    width: 120px;
+    height: 120px;
+    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
+  }
+
+  .loading-text {
+    color: #ffd700;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    animation: pulse 1.5s infinite;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  }
+
+  /* Status bar untuk efek loading */
+  .status-bar {
+    width: 200px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+
+  .status-progress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #ffd700, #ff8c00);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+</style>
+</head>
+
+<body>
+<!-- Loading overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/2/25/Lambang_Kodam_Udayana.svg" 
+       alt="Udayana" class="loading-logo">
+  <div class="loading-text">⚡ KORAMIL SUKASADA PORTAL ⚡</div>
+  <div class="status-bar">
+    <div class="status-progress" id="statusProgress"></div>
+  </div>
+</div>
+
+<!-- Header dengan logo Udayana -->
+<div class="udayana-header">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/2/25/Lambang_Kodam_Udayana.svg" 
+       alt="Lambang Kodam Udayana" class="udayana-logo">
+  <div class="udayana-title">KORAMIL SUKASADA PORTAL</div>
+</div>
+
+<!-- Control buttons -->
+<div class="control-buttons">
+  <button class="control-btn" id="infoBtn" title="Info">ⓘ</button>
+  <button class="control-btn" id="fullscreenBtn" title="Fullscreen">⛶</button>
+</div>
+
+<!-- Canvas untuk efek petir -->
+<canvas id="stormCanvas"></canvas>
+<div class="flash-overlay" id="stormFlash"></div>
+
+<!-- Main container dengan grid tombol -->
+<div class="main-container">
+  <div class="buttons-grid">
+    <button class="portal-button" id="btn1">
+      <span class="button-icon">🛡️</span>
+      <span class="button-text">DUKOPS</span>
+    </button>
+    <button class="portal-button" id="btn2">
+      <span class="button-icon">🛡️</span>
+      <span class="button-text">LPST05</span>
+    </button>
+    <button class="portal-button" id="btn3">
+      <span class="button-icon">📁</span>
+      <span class="button-text">GOOGLE DRIVE</span>
+    </button>
+    <button class="portal-button" id="btn4">
+      <span class="button-icon">📊</span>
+      <span class="button-text">SPREADSHEET</span>
+    </button>
+    <button class="portal-button" id="btn5">
+      <span class="button-icon">🛒</span>
+      <span class="button-text">PLAY STORE</span>
+    </button>
+    <button class="portal-button" id="btn6">
+      <span class="button-icon">✈️</span>
+      <span class="button-text">TELEGRAM</span>
+    </button>
+  </div>
+</div>
+
+<script>
+// Inisialisasi variabel global
+const canvas = document.getElementById("stormCanvas");
+const ctx = canvas.getContext("2d");
+const flashOverlay = document.getElementById("stormFlash");
+const loadingOverlay = document.getElementById("loadingOverlay");
+const statusProgress = document.getElementById("statusProgress");
+let w = 0, h = 0;
+
+// Resize canvas
+function resizeCanvas() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+// ============================
+// LOADING ANIMATION
+// ============================
+function updateLoadingProgress(percent) {
+  statusProgress.style.width = `${percent}%`;
+}
+
+// ============================
+// EFEK PETIR EMAS UDAYANA
+// ============================
+const clouds = [];
+const cloudCount = 150;
+
+function initClouds() {
+  clouds.length = 0;
+  for (let i = 0; i < cloudCount; i++) {
+    clouds.push({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 180 + 100,
+      vx: Math.random() * 0.18 + 0.03,
+      alpha: Math.random() * 0.15 + 0.08
+    });
+  }
+}
+
+function drawClouds() {
+  ctx.clearRect(0, 0, w, h);
+  
+  // Background gradient gelap dengan sedikit emas
+  const gradient = ctx.createRadialGradient(w/2, h/2, 0, w/2, h/2, Math.max(w, h)/2);
+  gradient.addColorStop(0, "#0a0a18");
+  gradient.addColorStop(0.5, "#000010");
+  gradient.addColorStop(1, "#000000");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, w, h);
+  
+  // Awan gelap dengan sentuhan emas
+  for (let c of clouds) {
+    c.x += c.vx;
+    if (c.x - c.r > w) c.x = -c.r;
+    
+    const g = ctx.createRadialGradient(c.x, c.y, 15, c.x, c.y, c.r);
+    g.addColorStop(0, `rgba(25, 20, 10, ${c.alpha})`);
+    g.addColorStop(0.5, `rgba(15, 10, 5, ${c.alpha * 0.7})`);
+    g.addColorStop(1, "rgba(0, 0, 0, 0)");
+    
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+// Petir emas Udayana yang lebih lembut
+function drawGoldenLightning(startX, endY) {
+  ctx.save();
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  
+  // Titik-titik petir dengan variasi
+  const points = [];
+  let x = startX, y = 0;
+  points.push({x, y});
+  
+  const segments = 8 + Math.floor(Math.random() * 4);
+  for (let i = 0; i < segments && y < endY; i++) {
+    x += (Math.random() - 0.5) * 80;
+    y += Math.random() * 60 + 30;
+    points.push({x, y});
+  }
+  
+  // Glow emas luar - lebih lembut
+  ctx.strokeStyle = "rgba(255, 215, 0, 0.1)";
+  ctx.lineWidth = 15;
+  ctx.shadowBlur = 40;
+  ctx.shadowColor = "rgba(255, 215, 0, 0.2)";
+  ctx.beginPath();
+  ctx.moveTo(points[0].x, points[0].y);
+  points.forEach(p => ctx.lineTo(p.x, p.y));
+  ctx.stroke();
+  
+  // Petir emas utama
+  ctx.strokeStyle = "rgba(255, 235, 140, 0.4)";
+  ctx.lineWidth = 8;
+  ctx.shadowBlur = 25;
+  ctx.shadowColor = "rgba(255, 235, 140, 0.3)";
+  ctx.beginPath();
+  ctx.moveTo(points[0].x, points[0].y);
+  points.forEach(p => ctx.lineTo(p.x, p.y));
+  ctx.stroke();
+  
+  // Core petir tipis
+  ctx.strokeStyle = "rgba(255, 255, 200, 0.8)";
+  ctx.lineWidth = 3;
+  ctx.shadowBlur = 15;
+  ctx.shadowColor = "rgba(255, 255, 200, 0.6)";
+  ctx.beginPath();
+  ctx.moveTo(points[0].x, points[0].y);
+  points.forEach(p => ctx.lineTo(p.x, p.y));
+  ctx.stroke();
+  
+  ctx.restore();
+}
+
+function strikeGoldenLightning() {
+  const startX = Math.random() * w;
+  const endY = h * 0.7 + Math.random() * h * 0.2;
+  
+  drawGoldenLightning(startX, endY);
+  
+  // Efek flash yang lebih lembut
+  flashOverlay.style.opacity = "0.3";
+  flashOverlay.style.background = "rgba(255, 215, 0, 0.08)";
+  setTimeout(() => flashOverlay.style.opacity = "0.08", 40);
+  setTimeout(() => {
+    flashOverlay.style.opacity = "0.15";
+    flashOverlay.style.background = "rgba(255, 215, 0, 0.04)";
+  }, 80);
+  setTimeout(() => flashOverlay.style.opacity = "0", 180);
+}
+
+// Loop petir
+function lightningLoop() {
+  if (Math.random() > 0.65) {
+    strikeGoldenLightning();
+  }
+  setTimeout(lightningLoop, Math.random() * 3000 + 1500);
+}
+
+// ============================
+// EFEK PECAH SERIBU - VERSI BARU
+// ============================
+function createThousandShards(button, color) {
+  const rect = button.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  
+  // Simpan icon dan text asli
+  const icon = button.querySelector('.button-icon');
+  const text = button.querySelector('.button-text');
+  const originalIconHTML = icon.innerHTML;
+  const originalTextHTML = text.innerHTML;
+  
+  // Sembunyikan icon dan text sementara
+  icon.style.opacity = '0';
+  icon.style.transform = 'scale(0)';
+  text.style.opacity = '0';
+  text.style.transform = 'scale(0)';
+  
+  // Warna berdasarkan tombol
+  const colorMap = {
+    'btn1': 'rgba(0, 180, 255, 1)',
+    'btn2': 'rgba(200, 0, 255, 1)',
+    'btn3': 'rgba(255, 220, 80, 1)',
+    'btn4': 'rgba(100, 255, 100, 1)',
+    'btn5': 'rgba(100, 180, 255, 1)',
+    'btn6': 'rgba(0, 220, 255, 1)'
+  };
+  
+  const shardColor = colorMap[button.id] || 'rgba(255, 215, 0, 1)';
+  
+  // Buat 1500 shards untuk efek lebih spektakuler
+  for (let i = 0; i < 1500; i++) {
+    const shard = document.createElement('div');
+    shard.className = 'shard';
+    
+    // Ukuran random dengan berbagai ukuran
+    const size = Math.random() * 10 + 3;
+    shard.style.width = `${size}px`;
+    shard.style.height = `${size}px`;
+    
+    // Warna dengan opacity bervariasi
+    shard.style.color = shardColor;
+    shard.style.opacity = Math.random() * 0.8 + 0.2;
+    
+    // Posisi awal dari tengah tombol
+    shard.style.left = `${centerX}px`;
+    shard.style.top = `${centerY}px`;
+    
+    // Gerakan random dengan variasi
+    const angle = Math.random() * Math.PI * 2;
+    const distance = Math.random() * 300 + 100;
+    const rotation = Math.random() * 720;
+    
+    // Animasi yang lebih kompleks
+    shard.animate([
+      {
+        transform: 'translate(0, 0) rotate(0deg) scale(1)',
+        opacity: 1
+      },
+      {
+        transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) rotate(${rotation}deg) scale(0)`,
+        opacity: 0
+      }
+    ], {
+      duration: 1200 + Math.random() * 600,
+      easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)',
+      fill: 'forwards',
+      delay: Math.random() * 200
+    });
+    
+    document.body.appendChild(shard);
+    
+    // Hapus shard setelah animasi
+    setTimeout(() => shard.remove(), 1800);
+  }
+  
+  // Buat 800 sparks dengan variasi
+  for (let i = 0; i < 800; i++) {
+    const spark = document.createElement('div');
+    spark.className = 'spark';
+    
+    // Ukuran spark bervariasi
+    const sparkSize = Math.random() * 8 + 2;
+    spark.style.width = `${sparkSize}px`;
+    spark.style.height = `${sparkSize}px`;
+    
+    // Warna spark
+    spark.style.color = shardColor;
+    spark.style.opacity = Math.random() * 0.9 + 0.1;
+    
+    spark.style.left = `${centerX}px`;
+    spark.style.top = `${centerY}px`;
+    
+    const angle = Math.random() * Math.PI * 2;
+    const distance = Math.random() * 250 + 50;
+    
+    spark.animate([
+      {
+        transform: 'translate(0, 0) scale(1)',
+        opacity: 1,
+        filter: 'blur(0px)'
+      },
+      {
+        transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(0)`,
+        opacity: 0,
+        filter: 'blur(5px)'
+      }
+    ], {
+      duration: 800 + Math.random() * 400,
+      easing: 'cubic-bezier(0.1, 0.9, 0.2, 1)',
+      fill: 'forwards',
+      delay: Math.random() * 150
+    });
+    
+    document.body.appendChild(spark);
+    setTimeout(() => spark.remove(), 1200);
+  }
+  
+  // Kembalikan icon dan text setelah 1.2 detik
+  setTimeout(() => {
+    icon.animate([
+      { opacity: 0, transform: 'scale(0) rotate(-180deg)' },
+      { opacity: 1, transform: 'scale(1.2) rotate(0deg)' },
+      { opacity: 1, transform: 'scale(1) rotate(0deg)' }
+    ], {
+      duration: 500,
+      easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)'
+    });
+    
+    text.animate([
+      { opacity: 0, transform: 'scale(0) translateY(20px)' },
+      { opacity: 1, transform: 'scale(1.1) translateY(0)' },
+      { opacity: 1, transform: 'scale(1) translateY(0)' }
+    ], {
+      duration: 500,
+      easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+      delay: 100
+    });
+    
+    // Set style setelah animasi
+    setTimeout(() => {
+      icon.style.opacity = '';
+      icon.style.transform = '';
+      text.style.opacity = '';
+      text.style.transform = '';
+    }, 600);
+  }, 1200);
+}
+
+// ============================
+// HANDLER TOMBOL
+// ============================
+const buttonConfigs = {
+  btn1: { 
+    url: "https://koramil05.github.io/DUKOPS/", 
+    name: "DUKOPS" 
+  },
+  btn2: { 
+    url: "https://koramil05.github.io/LPST05/", 
+    name: "LPST05" 
+  },
+  btn3: { 
+    url: "https://drive.google.com/drive/folders/1K9iWrM9fGU3sMcEZCmUWIbx0rLs285_x", 
+    name: "GOOGLE DRIVE" 
+  },
+  btn4: { 
+    url: "https://docs.google.com/spreadsheets", 
+    name: "SPREADSHEET" 
+  },
+  btn5: { 
+    url: "market://details?id=com.android.vending",
+    fallback: "https://play.google.com/store",
+    name: "PLAY STORE" 
+  },
+  btn6: { 
+    url: "tg://resolve?domain=telegram",
+    fallback: "https://t.me/telegram",
+    name: "TELEGRAM" 
+  }
+};
+
+// Setup semua tombol
+Object.keys(buttonConfigs).forEach(btnId => {
+  const button = document.getElementById(btnId);
+  const config = buttonConfigs[btnId];
+  
+  button.addEventListener('click', async (e) => {
+    // Nonaktifkan tombol sementara
+    button.disabled = true;
+    
+    // Efek visual tombol saat diklik
+    button.style.transform = 'scale(0.95)';
+    button.style.filter = 'brightness(1.5) saturate(2)';
+    
+    // Efek petir emas
+    for(let i = 0; i < 4; i++) {
+      setTimeout(() => strikeGoldenLightning(), i * 120);
+    }
+    
+    // Efek pecah seribu (icon dan text hilang sementara)
+    createThousandShards(button, btnId);
+    
+    // Tunggu 1.8 detik untuk semua animasi
+    await new Promise(resolve => setTimeout(resolve, 1800));
+    
+    // Kembalikan tombol ke semula
+    button.style.transform = '';
+    button.style.filter = '';
+    
+    // Buka link
+    setTimeout(() => {
+      if (config.fallback) {
+        const appWindow = window.open(config.url, '_blank');
+        setTimeout(() => {
+          if (!appWindow || appWindow.closed || typeof appWindow.closed === 'undefined') {
+            window.open(config.fallback, '_blank');
+          }
+        }, 500);
+      } else {
+        window.open(config.url, '_blank');
+      }
+      
+      // Aktifkan kembali tombol setelah 500ms
+      setTimeout(() => {
+        button.disabled = false;
+      }, 500);
+    }, 200);
+  });
+});
+
+// ============================
+// CONTROL BUTTONS
+// ============================
+document.getElementById('infoBtn').addEventListener('click', () => {
+  alert('🛡️ KORAMIL SUKASADA PORTAL 🛡️\n\nPortal Akses Cepat Kodam Udayana:\n\n• DUKOPS - Website Resmi\n• LPST05 - Website Resmi\n• Google Drive - Folder Dokumentasi\n• Spreadsheet - Laporan Digital\n• Play Store - Aplikasi Android\n• Telegram - Komunikasi Tim\n\nKlik tombol untuk efek petir emas!');
+});
+
+document.getElementById('fullscreenBtn').addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+    document.getElementById('fullscreenBtn').textContent = '✕';
+  } else {
+    document.exitFullscreen();
+    document.getElementById('fullscreenBtn').textContent = '⛶';
+  }
+});
+
+// ============================
+// PWA SETUP
+// ============================
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    const swCode = `
+      self.addEventListener('install', (e) => {
+        console.log('KORAMIL SUKASADA PORTAL installed');
+        self.skipWaiting();
+      });
+      
+      self.addEventListener('activate', (e) => {
+        console.log('KORAMIL SUKASADA PORTAL activated');
+      });
+      
+      self.addEventListener('fetch', (e) => {
+        e.respondWith(fetch(e.request));
+      });
+    `;
+    
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    const swUrl = URL.createObjectURL(blob);
+    
+    navigator.serviceWorker.register(swUrl)
+      .then(reg => console.log('Service Worker registered'))
+      .catch(err => console.log('Service Worker error:', err));
+  });
+}
+
+// Create manifest
+const manifest = {
+  "name": "Koramil Sukasada Portal",
+  "short_name": "Udayana",
+  "description": "Portal Akses Cepat Kodam Udayana",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ffd700",
+  "orientation": "portrait",
+  "icons": [{
+    "src": "https://upload.wikimedia.org/wikipedia/commons/2/25/Lambang_Kodam_Udayana.svg",
+    "sizes": "192x192",
+    "type": "image/svg+xml"
+  }]
+};
+
+const manifestLink = document.createElement('link');
+manifestLink.rel = 'manifest';
+manifestLink.href = 'data:application/manifest+json,' + encodeURIComponent(JSON.stringify(manifest));
+document.head.appendChild(manifestLink);
+
+// ============================
+// INITIALIZE
+// ============================
+function initialize() {
+  // Update loading progress
+  let progress = 0;
+  const loadingInterval = setInterval(() => {
+    progress += Math.random() * 15 + 5;
+    if (progress > 100) progress = 100;
+    updateLoadingProgress(progress);
+    
+    if (progress >= 100) {
+      clearInterval(loadingInterval);
+      initClouds();
+      
+      // Animasi utama
+      function animate() {
+        drawClouds();
+        requestAnimationFrame(animate);
+      }
+      animate();
+      
+      // Mulai loop petir
+      setTimeout(() => {
+        lightningLoop();
+      }, 2000);
+      
+      // Sembunyikan loading
+      setTimeout(() => {
+        loadingOverlay.classList.add('hidden');
+      }, 800);
+    }
+  }, 100);
+}
+
+// Start everything
+window.addEventListener('load', initialize);
+</script>
+</body>
+</html>
